@@ -16,24 +16,15 @@
 	<div id="main">
 		<h1>コースの編集</h1>
 		<form action="TeacherRegisterServlet" method="post">
-			コース名：<input type="text" name="course_name">
-			<br>
-			カテゴリ名①：<input type="text" name="category_name_1">
-			<br>
-			カテゴリ名②：<input type="text" name="category_name_2">
-			<br>
-			カテゴリ名③：<input type="text" name="category_name_3">
-			<br>
-			カテゴリ名④：<input type="text" name="category_name_4">
-			<br>
-			生徒共通パスワード：<input type="password" name="password">
-			<br><br>
-			カテゴリ項目、生徒情報のCSVは指定された場所に、最大4つまで配置してください（自動で読み込みます）。
-			<br>
-			カテゴリが4つに満たない場合でも、その分だけのCSVファイルを配置することで対応します。
-			<br><br>
-			<input type="submit">
-			<br>
+			<p>コース名：<input type="text" name="course_name"></p>
+			<p>カテゴリ名①：<input type="text" name="gcategory_name_1"></p>
+			<p>カテゴリ名②：<input type="text" name="category_name_2"></p>
+			<p>カテゴリ名③：<input type="text" name="category_name_3"></p>
+			<p>カテゴリ名④：<input type="text" name="category_name_4"></p>
+			<p>生徒共通パスワード：<input type="password" name="password"></p>
+			<p>カテゴリ項目、生徒情報のCSVは指定された場所に、最大4つまで配置してください（自動で読み込みます）。
+			カテゴリが4つに満たない場合でも、その分だけのCSVファイルを配置することで対応します。</p>
+			<p><input type="submit"></p>
 		</form>
 	</div>
 	<footer id="footer">

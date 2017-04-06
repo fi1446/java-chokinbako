@@ -41,7 +41,7 @@
 						<a class="erase" href="">取消</a>
 					</p>
 					<!-- 空白対策のため、タグを詰めて表記している -->
-					<textarea name="memo_<%= i %>"><% String memo; %><% memo = (String) session.getAttribute("memo" + catnum + "_" + (i+1)); %><% if (!(memo.equals("null"))) { %><%=session.getAttribute("memo" + catnum + "_" + (i+1))%><% } %></textarea>
+					<textarea name="memo_<%= i %>"><% String memo; %><% memo = (String) session.getAttribute("memo" + catnum + "_" + (i+1)); %><% if (memo != null) { %><%=session.getAttribute("memo" + catnum + "_" + (i+1))%><% } %></textarea>
 					<% } %>
 				</div>
 				<div>
@@ -59,7 +59,7 @@
 		<script>
 			$('.erase').click(function(e) {
 				e.preventDefault();
-				$(this).parent('div').find('input').prop('checked', false);
+				$(this).parent('p').find('.check').prop('checked', false);
 			});
 		</script>
 	</body>

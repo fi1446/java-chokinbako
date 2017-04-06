@@ -118,13 +118,13 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 		for (int i = 0; i < catnum; i++) {
 			topic_id_list.add(TeacherRegisterModel.setTopicIdsByCategories(catname_list.get(i).getName()));
 		}
-		
+
 		//ログイン情報を保存する
 		int s_num = (int) session.getAttribute("student_num");
 		for (int i=0; i<s_num; i++) {
 			TeacherRegisterModel.createStudentsLogins((String) session.getAttribute("student" + i + "_email"), (String) session.getAttribute("password"), db_course_id);
 		}
-		
+
 		//ログインIDを取得する
 		ArrayList<StudentNewInfoBeans> logins_id_list = new ArrayList<>();
 		for (int i = 0; i < s_num; i++) {
@@ -133,7 +133,7 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 		for (int i = 0; i < s_num; i++) {
 			System.out.println(logins_id_list.get(i).getLogins_id());
 		}
-		
+
 		//View名を作る
 		ArrayList<String> checklistsViews_list = new ArrayList<>();
 		for (int i=0; i<s_num; i++) {
@@ -142,7 +142,7 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 		for (int i=0; i<s_num; i++) {
 			System.out.println(checklistsViews_list.get(i));
 		}
-		
+
 		//checkテーブルにインサートする
 		for (int i = 0; i < s_num; i++) {
 			for (int j = 0; j < topic_id_list.size(); j++) {
@@ -158,11 +158,11 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 		for (int i = 0; i < s_num; i++) {
 			TeacherRegisterModel.createViewsByStudents(checklistsViews_list.get(i) ,(String) session.getAttribute("student" + i + "_email"));
 		}
-		
+
 		//ようやく生徒が作れるやったー！
 		for (int i = 0; i < s_num; i++) {
 			TeacherRegisterModel.createStudents((String) session.getAttribute("student" + i + "_email"), (String) session.getAttribute("student" + i + "_name"), db_course_id, logins_id_list.get(i).getLogins_id(), checklistsViews_list.get(i));
-		}		
+		}
 
 		//先生のコースIDとregisteredもアップデートする
 		TeacherRegisterModel.updateTeacherInfo(db_course_id, t_id);

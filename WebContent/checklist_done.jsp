@@ -8,10 +8,7 @@
   <body>
     <header id="header">
       <h1>学習チョキン箱</h1>
-      <form>
-        <input value="もどる" onclick="history.back();" type="button">
-      </form>
-		</header>
+	</header>
   	<div id="main">
       <p>チェックリストの編集が完了しました。</p>
       <form action="StudentDashboardServlet" method="post">

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,7 +17,7 @@
 			<h1>コースの編集</h1>
 			<form action="TeacherRegisterServlet" method="post">
 				<p>コース名：<input type="text" name="course_name"></p>
-				<p>カテゴリ名①：<input type="text" name="gcategory_name_1"></p>
+				<p>カテゴリ名①：<input type="text" name="category_name_1"></p>
 				<p>カテゴリ名②：<input type="text" name="category_name_2"></p>
 				<p>カテゴリ名③：<input type="text" name="category_name_3"></p>
 				<p>カテゴリ名④：<input type="text" name="category_name_4"></p>

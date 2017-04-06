@@ -81,7 +81,7 @@ public class TeacherRegisterServlet extends HttpServlet {
 		for (int i = 1; i <= length; i++) {
 			ArrayList<CategoryTopicBeans> topic_list = new ArrayList<>();
 			try {
-				File f = new File(getServletContext().getRealPath("/sample" + i + ".csv"));
+				File f = new File(getServletContext().getRealPath("/csv/sample" + i + ".csv"));
 				BufferedReader br = new BufferedReader(new FileReader(f));
 				String line;
 				// 1行ずつCSVファイルを読み込む
@@ -99,10 +99,10 @@ public class TeacherRegisterServlet extends HttpServlet {
 			}
 			all_topics_list.add(topic_list);
 		}
-	
+
 		ArrayList<StudentNewInfoBeans> student_list = new ArrayList<>();
 		try {
-			File f = new File(getServletContext().getRealPath("/student.csv"));
+			File f = new File(getServletContext().getRealPath("/csv/student.csv"));
 			BufferedReader br = new BufferedReader(new FileReader(f));
 			String line;
 			// 1行ずつCSVファイルを読み込む
@@ -117,8 +117,8 @@ public class TeacherRegisterServlet extends HttpServlet {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
-		
-		for(int i=0; i<student_list.size(); i++) {
+
+		for (int i = 0; i < student_list.size(); i++) {
 			session.setAttribute("student" + i + "_name", student_list.get(i).getName());
 			session.setAttribute("student" + i + "_email", student_list.get(i).getEmail());
 		}
@@ -132,15 +132,14 @@ public class TeacherRegisterServlet extends HttpServlet {
 				session.setAttribute("topic" + (i + 1) + "_" + (j + 1), list.get(j).getTopic());
 			}
 		}
-		
-		String name;
+
 		for (int i = 1; i <= length; i++) {
+			String name;
 			name = request.getParameter("category_name_" + i);
-			if (String.valueOf(name) == "null" || String.valueOf(name) == "") {
-				break;
+			if (!(name.equals(""))) {
+				session.setAttribute("category_name_" + i, request.getParameter("category_name_" + i));
+				session.setAttribute("categories_num", i);
 			}
-			session.setAttribute("category_name_" + i, request.getParameter("category_name_" + i));
-			session.setAttribute("categories_num", i);
 		}
 
 		String jspname = null;

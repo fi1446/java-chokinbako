@@ -1,13 +1,10 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TeacherInfoBeans implements Serializable {
 	@SuppressWarnings("unused")
 	private static final long serialVersionID = 1L;
-
 	private String teacher_name;
 	private int teachers_id;
 	private int courses_id;
@@ -49,5 +46,4 @@ public class TeacherInfoBeans implements Serializable {
 	public void setRegistered(String registered) {
 		this.registered = registered;
 	}
-
 }

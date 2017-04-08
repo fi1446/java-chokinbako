@@ -1,17 +1,13 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TopicIdBeans implements Serializable {
 	@SuppressWarnings("unused")
 	private static final long serialVersionID = 1L;
-	
 	private int id;
 	private String category;
-	
-	// 引数なしのコンストラクタ
+
 	public TopicIdBeans() {
 
 	}

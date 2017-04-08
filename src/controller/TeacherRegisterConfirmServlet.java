@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,34 +10,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.util.List;
 import java.util.ArrayList;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.SecureRandom;
 import java.security.NoSuchAlgorithmException;
 
-import beans.CategoryTopicBeans;
 import beans.CategoryUniqueNameBeans;
 import beans.StudentNewInfoBeans;
 import beans.TopicIdBeans;
-import helper.NameExtractor;
 
 import model.TeacherRegisterModel;
 
-/**
- * Servlet implementation class TeacherRegisterServlet
- */
 @WebServlet("/TeacherRegisterConfirmServlet")
 public class TeacherRegisterConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public TeacherRegisterConfirmServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private void forwardJSP(String url, HttpServletRequest request, HttpServletResponse response)
@@ -47,20 +36,11 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -87,7 +67,7 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 		}
 
 		String s_id = request.getParameter("teachers_id");
-		int t_id = Integer.valueOf(s_id); //logins_idではなく、teachers_id
+		int t_id = Integer.valueOf(s_id); // logins_idではなく、teachers_id
 
 		String course_name = (String) session.getAttribute("course_name");
 		course_name = String.valueOf(course_name);
@@ -95,9 +75,8 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 		String password = (String) session.getAttribute("password");
 		password = String.valueOf(password);
 
-		 //コース登録
-		 TeacherRegisterModel.setNewCourse(catname_list, course_name,
-		 password, t_id);
+		// コース登録
+		TeacherRegisterModel.setNewCourse(catname_list, course_name, password, t_id);
 
 		// コースのデータベース上のIDを取得
 		int db_course_id = TeacherRegisterModel.sendBackLatestCourseId();
@@ -119,13 +98,14 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 			topic_id_list.add(TeacherRegisterModel.setTopicIdsByCategories(catname_list.get(i).getName()));
 		}
 
-		//ログイン情報を保存する
+		// ログイン情報を保存する
 		int s_num = (int) session.getAttribute("student_num");
-		for (int i=0; i<s_num; i++) {
-			TeacherRegisterModel.createStudentsLogins((String) session.getAttribute("student" + i + "_email"), (String) session.getAttribute("password"), db_course_id);
+		for (int i = 0; i < s_num; i++) {
+			TeacherRegisterModel.createStudentsLogins((String) session.getAttribute("student" + i + "_email"),
+					(String) session.getAttribute("password"), db_course_id);
 		}
 
-		//ログインIDを取得する
+		// ログインIDを取得する
 		ArrayList<StudentNewInfoBeans> logins_id_list = new ArrayList<>();
 		for (int i = 0; i < s_num; i++) {
 			logins_id_list = TeacherRegisterModel.setLoginsIdsByCourseId(db_course_id);
@@ -134,16 +114,16 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 			System.out.println(logins_id_list.get(i).getLogins_id());
 		}
 
-		//View名を作る
+		// View名を作る
 		ArrayList<String> checklistsViews_list = new ArrayList<>();
-		for (int i=0; i<s_num; i++) {
+		for (int i = 0; i < s_num; i++) {
 			checklistsViews_list.add("checklist_" + db_course_id + "_" + logins_id_list.get(i).getLogins_id());
 		}
-		for (int i=0; i<s_num; i++) {
+		for (int i = 0; i < s_num; i++) {
 			System.out.println(checklistsViews_list.get(i));
 		}
 
-		//checkテーブルにインサートする
+		// checkテーブルにインサートする
 		for (int i = 0; i < s_num; i++) {
 			for (int j = 0; j < topic_id_list.size(); j++) {
 				ArrayList<TopicIdBeans> topic_list = topic_id_list.get(j);
@@ -154,17 +134,20 @@ public class TeacherRegisterConfirmServlet extends HttpServlet {
 			}
 		}
 
-		//Viewを作る
+		// Viewを作る
 		for (int i = 0; i < s_num; i++) {
-			TeacherRegisterModel.createViewsByStudents(checklistsViews_list.get(i) ,(String) session.getAttribute("student" + i + "_email"));
+			TeacherRegisterModel.createViewsByStudents(checklistsViews_list.get(i),
+					(String) session.getAttribute("student" + i + "_email"));
 		}
 
-		//ようやく生徒が作れるやったー！
+		// 最後に生徒を作る
 		for (int i = 0; i < s_num; i++) {
-			TeacherRegisterModel.createStudents((String) session.getAttribute("student" + i + "_email"), (String) session.getAttribute("student" + i + "_name"), db_course_id, logins_id_list.get(i).getLogins_id(), checklistsViews_list.get(i));
+			TeacherRegisterModel.createStudents((String) session.getAttribute("student" + i + "_email"),
+					(String) session.getAttribute("student" + i + "_name"), db_course_id,
+					logins_id_list.get(i).getLogins_id(), checklistsViews_list.get(i));
 		}
 
-		//先生のコースIDとregisteredもアップデートする
+		// 先生のコースIDとregisteredもアップデートする
 		TeacherRegisterModel.updateTeacherInfo(db_course_id, t_id);
 
 		String jspname = null;

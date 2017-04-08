@@ -7,7 +7,6 @@ import java.util.List;
 public class TeacherCourseInfoBeans implements Serializable {
 	@SuppressWarnings("unused")
 	private static final long serialVersionID = 1L;
-
 	private String course_name;
 	private String category1;
 	private String category2;
@@ -75,5 +74,4 @@ public class TeacherCourseInfoBeans implements Serializable {
 	public void setCourse_password(String course_password) {
 		this.course_password = course_password;
 	}
-	
 }

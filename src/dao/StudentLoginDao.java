@@ -5,10 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import beans.CategoryNameBeans;
-import beans.ChecklistBeans;
-import beans.StudentInfoBeans;
-
 public class StudentLoginDao extends SuperDao {
 
 	private static String TABLENAME = "logins";

@@ -1,13 +1,11 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import beans.CategoryNameBeans;
 import beans.CategoryTopicBeans;
 import beans.ChecklistBeans;
 import beans.CategoryCheckBeans;
@@ -16,11 +14,7 @@ import beans.MemoBeans;
 
 public class StudentChecklistDao extends SuperDao {
 
-	private static String TABLENAME1 = "students";
-	private static String TABLENAME2 = "courses";
-	private static String TABLENAME3 = "checks";
-	private static String TABLENAME4 = "topics";
-
+	private static String TABLENAME = "topics";
 
 	public ArrayList<CategoryCheckBeans> getCheckedByCategories(ChecklistBeans beans, String category) {
 		loadJDBCDriver();
@@ -57,7 +51,7 @@ public class StudentChecklistDao extends SuperDao {
 		Connection con = null;
 		try {
 			con = getConnection();
-			String sql = "select topic as topic from " + TABLENAME4 + " where category = '" + category + "'";
+			String sql = "select topic as topic from " + TABLENAME + " where category = '" + category + "'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {

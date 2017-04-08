@@ -24,7 +24,6 @@ public class StudentDashboardServlet extends HttpServlet {
 	 */
 	public StudentDashboardServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private void forwardJSP(String url, HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +38,6 @@ public class StudentDashboardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -55,11 +53,11 @@ public class StudentDashboardServlet extends HttpServlet {
 		if (StudentLoginModel.login(request.getParameter("email"), request.getParameter("password"))) {
 			session.setAttribute("email", request.getParameter("email"));
 			session.setAttribute("password", request.getParameter("password"));
-			
+
 			int logins_id = StudentLoginModel.getLoginsId(request.getParameter("email"));
 			session.setAttribute("logins_id", logins_id);
 			System.out.println("logins_id: " + logins_id);
-			
+
 			beans.StudentInfoBeans studentInfoBeans = new beans.StudentInfoBeans();
 			studentInfoBeans = StudentDashboardModel.getStudentInfo(studentInfoBeans, logins_id);
 
@@ -79,7 +77,7 @@ public class StudentDashboardServlet extends HttpServlet {
 					categoryNameBeans.getCategory3());
 			int category_all_checked4 = StudentDashboardModel.countAllCheckedByCategories(checklistBeans,
 					categoryNameBeans.getCategory4());
-			
+
 			int all_listcheck = StudentDashboardModel.countAllListcheck(checklistBeans);
 
 			int category_all_listcheck1 = StudentDashboardModel.countAllListcheckByCategories(checklistBeans,

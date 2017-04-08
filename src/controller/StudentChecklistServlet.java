@@ -13,24 +13,16 @@ import javax.servlet.http.HttpSession;
 
 import beans.CategoryCheckBeans;
 import beans.CategoryTopicBeans;
-import beans.ChecklistBeans;
 import beans.MemoBeans;
 import model.StudentChecklistModel;
 import model.StudentDashboardModel;
 
-/**
- * Servlet implementation class InputServlet
- */
 @WebServlet("/StudentChecklistServlet")
 public class StudentChecklistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public StudentChecklistServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private void forwardJSP(String url, HttpServletRequest request, HttpServletResponse response)
@@ -39,30 +31,23 @@ public class StudentChecklistServlet extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(false);
 
 		beans.CategoryNameBeans categoryNameBeans = new beans.CategoryNameBeans();
-		categoryNameBeans = StudentDashboardModel.getCategoriesNamesFromCourse(categoryNameBeans, (int) session.getAttribute("logins_id"));
+		categoryNameBeans = StudentDashboardModel.getCategoriesNamesFromCourse(categoryNameBeans,
+				(int) session.getAttribute("logins_id"));
 
 		beans.ChecklistBeans checklistBeans = new beans.ChecklistBeans();
-		checklistBeans = StudentDashboardModel.getChecklistName(checklistBeans, (int) session.getAttribute("logins_id"));
-		
+		checklistBeans = StudentDashboardModel.getChecklistName(checklistBeans,
+				(int) session.getAttribute("logins_id"));
+
 		int i;
 
 		try {

@@ -7,11 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import beans.CategoryNameBeans;
 import beans.CategoryUniqueNameBeans;
-import beans.ChecklistBeans;
-import beans.MemoBeans;
-import beans.StudentInfoBeans;
 import beans.StudentNewInfoBeans;
 import beans.TopicIdBeans;
 
@@ -27,19 +23,10 @@ public class TeacherRegisterDao extends SuperDao {
 	public void setNewCourse(ArrayList<CategoryUniqueNameBeans> list, String course_name, String password, int id) {
 		loadJDBCDriver();
 		Connection con = getConnection();
-
 		String sql = "insert into " + TABLENAME2 + " (name, category1, category2, category3, category4, password, teachers_id) values (?,?,?,?,?,?,?);";
-
 		try {
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, course_name);
-			for (int i = 0; i < 4; i++) {
-				if (list.get(i).getName() == null || String.valueOf(list.get(i).getName()) == "") {
-					statement.setString(i + 2, null);
-				} else {
-					statement.setString(i + 2, list.get(i).getName());
-				}
-			}
 			statement.setString(2, list.get(0).getName());
 			statement.setString(3, list.get(1).getName());
 			statement.setString(4, list.get(2).getName());
@@ -58,15 +45,10 @@ public class TeacherRegisterDao extends SuperDao {
 	public int sendBackLatestCourseId() {
 		loadJDBCDriver();
 		System.out.println("ロードできました。");
-
 		int checked_count = 0;
-
 		Connection con = null;
 		try {
-			/* データベースに接続 */
 			con = getConnection();
-
-			/* データベースにSQL文を送信 */
 			String sql = "select max(courses_id) as id from " + TABLENAME2;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -84,9 +66,7 @@ public class TeacherRegisterDao extends SuperDao {
 	public void insertIntoTopicsByCategories(int courses_id, String category_name, String topic) {
 		loadJDBCDriver();
 		Connection con = getConnection();
-
 		String sql = "insert into " + TABLENAME4 + " (courses_id, category, topic) values (?,?,?);";
-
 		try {
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setInt(1, courses_id);
@@ -100,8 +80,7 @@ public class TeacherRegisterDao extends SuperDao {
 		}
 		return;
 	}
-	
-	//いまここ
+
 	public ArrayList<TopicIdBeans> setTopicIdsByCategories(String category) {
 		loadJDBCDriver();
 		System.out.println("ロードできました。");
@@ -217,7 +196,6 @@ public class TeacherRegisterDao extends SuperDao {
 			statement.setInt(3, db_course_id);
 			statement.setInt(4, logins_id);
 			statement.setString(5, checklist);
-
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -1,19 +1,9 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-
-import beans.CategoryNameBeans;
-import beans.CategoryUniqueNameBeans;
-import beans.ChecklistBeans;
-import beans.MemoBeans;
-import beans.StudentInfoBeans;
-import beans.StudentNewInfoBeans;
-import beans.TopicIdBeans;
 
 public class TeacherLoginDao extends SuperDao {
 
